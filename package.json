@@ -6,6 +6,9 @@
     "local": "cross-env NODE_ENV=dev nodemon -V src/app.js --max_old_space_size=2048",
     "start": "node src/app.js"
   },
+  "engines": {
+    "node": "14.0.0"
+  },
   "dependencies": {
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
