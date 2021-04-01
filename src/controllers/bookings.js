@@ -30,7 +30,7 @@ const sendSMS = async (body) => {
           .format(format)
       }
       const payload = {
-        origin: 'Quad Bike',
+        origin: process.env.FROM,
         destination: mobile,
         message: `Dear ${name}, this a quick reminder from Quad Bike King that you must turn up at least 30 minutes before your ${productName}
       on ${aus.format('L')} at ${aus.format('LT')}. Our transfer vehicles must leave on time and if you are late you will lose your

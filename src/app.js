@@ -27,6 +27,10 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'dev') {
 
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '/index.html'));
+});
+
 app.use('/bookings', bookings);
 
 // catch 404 and forward to error handler
