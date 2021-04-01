@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "local": "cross-env NODE_ENV=dev nodemon -V app.js --max_old_space_size=2048",
-    "start": "node app.js"
+    "local": "cross-env NODE_ENV=dev nodemon -V src/app.js --max_old_space_size=2048",
+    "start": "node src/app.js"
   },
   "engines": {
     "node": "14.x.x"
