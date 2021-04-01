@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config({ path: path.join(__dirname, `.env`) });
 
-const middleware = require('./middleware');
+const middleware = require('./src/middleware');
 const errorHandler = middleware.errorHandler();
-const bookings = require('./routes/bookings');
+const bookings = require('./src/routes/bookings');
 const morgan = require('morgan');
 
 const app = express();
