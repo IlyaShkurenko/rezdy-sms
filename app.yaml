@@ -1,0 +1,7 @@
+runtime: nodejs14
+
+env_variables:
+  PORT: 3000
+  SMSGLOBAL_API_KEY: da4d4da2484817f10192b44ac38af58b
+  SMSGLOBAL_API_SECRET: f452c4aea6c5e2b54d5b3cd97c5e2f8e
+  FROM: 61429557976
