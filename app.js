@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
   errorHandler(err, req, res, next);
 });
 
-const port = process.env.PORT;
+const port = 3000;
 const host = process.env.HOST || 'localhost';
 // app.listen(port, 'ec2-3-82-214-166.compute-1.amazonaws.com');
 app.listen(port, host);

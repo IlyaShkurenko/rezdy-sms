@@ -1,6 +1,6 @@
 const moment = require('moment-timezone');
 
-const smsglobal = require('smsglobal')(process.env.SMSGLOBAL_API_KEY, process.env.SMSGLOBAL_API_SECRET);
+const smsglobal = require('smsglobal')('da4d4da2484817f10192b44ac38af58b', 'f452c4aea6c5e2b54d5b3cd97c5e2f8e');
 
 const sendSMS = async (body) => {
   const { customer: { name, mobile }, items } = body
@@ -30,7 +30,7 @@ const sendSMS = async (body) => {
           .format(format)
       }
       const payload = {
-        origin: process.env.FROM,
+        origin: '61429557976',
         destination: mobile,
         message: `Dear ${name}, this a quick reminder from Quad Bike King that you must turn up at least 30 minutes before your ${productName}
       on ${aus.format('L')} at ${aus.format('LT')}. Our transfer vehicles must leave on time and if you are late you will lose your
