@@ -1,0 +1,23 @@
+{
+  "name": "rezdy-sms",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "local": "cross-env NODE_ENV=dev nodemon -V src/app.js --max_old_space_size=2048",
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.3",
+    "dotenv": "^8.2.0",
+    "express": "~4.15.2",
+    "moment-timezone": "^0.5.33",
+    "morgan": "^1.8.2",
+    "nodemon": "^2.0.7",
+    "pug": "~2.0.0-beta11",
+    "serve-favicon": "~2.4.2",
+    "smsglobal": "^1.2.2"
+  }
+}
