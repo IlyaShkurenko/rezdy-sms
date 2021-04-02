@@ -4,7 +4,7 @@ const smsglobal = require('smsglobal')(process.env.SMSGLOBAL_API_KEY, process.en
 const { BadRequestError } = require('../errors')
 
 const sendSMS = async (body) => {
-  const { customer: { name, mobile }, items } = body
+  const { customer: { name, mobile, phone }, items } = body
   const events = await Promise.all(items.map(({ productName, startTime }) => {
     return new Promise((resolve, reject) => {
       let scheduledDateTime;
@@ -32,13 +32,12 @@ const sendSMS = async (body) => {
       }
       const payload = {
         origin: process.env.FROM,
-        destination: mobile,
+        destination: mobile || phone,
         message: `Dear ${name}, this a quick reminder from Quad Bike King that you must turn up at least 30 minutes before your ${productName}
       on ${aus.format('L')} at ${aus.format('LT')}. Our transfer vehicles must leave on time and if you are late you will lose your
       opportunity to enjoy the ${productName}.`,
         scheduledDateTime
       }
-
       smsglobal.sms.send(payload, function (error, response) {
         if(error) {
           reject(new BadRequestError(error))
