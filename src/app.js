@@ -44,10 +44,10 @@ app.use((err, req, res, next) => {
   errorHandler(err, req, res, next);
 });
 
-const port = 3000;
-const host = process.env.HOST || 'localhost';
-// app.listen(port, 'ec2-3-82-214-166.compute-1.amazonaws.com');
-app.listen(port, host);
-console.log(`Running on http://${host}:${port}`);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+  console.log('Press Ctrl+C to quit.');
+});
 
 module.exports = app;

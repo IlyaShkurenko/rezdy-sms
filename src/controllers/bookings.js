@@ -1,6 +1,7 @@
 const moment = require('moment-timezone');
 
 const smsglobal = require('smsglobal')(process.env.SMSGLOBAL_API_KEY, process.env.SMSGLOBAL_API_SECRET);
+const { BadRequestError } = require('../errors')
 
 const sendSMS = async (body) => {
   const { customer: { name, mobile }, items } = body
@@ -40,8 +41,7 @@ const sendSMS = async (body) => {
 
       smsglobal.sms.send(payload, function (error, response) {
         if(error) {
-          const message = error.data && error.data.errors.origin && error.data.errors.origin.errors.join(',') || error;
-          reject(new Error(message))
+          reject(new BadRequestError(error))
         }
         resolve(response)
       });
