@@ -1,4 +1,5 @@
 const moment = require('moment-timezone');
+const request = require('request-promise');
 
 const smsglobal = require('smsglobal')(process.env.SMSGLOBAL_API_KEY, process.env.SMSGLOBAL_API_SECRET);
 const { BadRequestError } = require('../errors')
@@ -32,7 +33,7 @@ const sendSMS = async (body) => {
       }
       const payload = {
         origin: process.env.FROM,
-        destination: mobile || phone,
+        destination: (mobile || phone).replace(/\s/g, ''),
         message: `Dear ${name}, this a quick reminder from Quad Bike King that you must turn up at least 30 minutes before your ${productName}
       on ${aus.format('L')} at ${aus.format('LT')}. Our transfer vehicles must leave on time and if you are late you will lose your
       opportunity to enjoy the ${productName}.`,
@@ -42,7 +43,7 @@ const sendSMS = async (body) => {
         if(error) {
           reject(new BadRequestError(error))
         }
-        resolve(response)
+        resolve(response.data && response.data.messages && response.data.messages[0])
       });
     })
   }))
@@ -50,4 +51,32 @@ const sendSMS = async (body) => {
 }
 
 
-module.exports = { sendSMS }
+const getAllSMS = (options = {}) => {
+  return new Promise((resolve, reject) => {
+    smsglobal.sms.getAll(options, function (error, response) {
+      if(error) {
+        reject(new BadRequestError(error))
+      }
+      resolve(response)
+    });
+  })
+}
+
+const deleteSMS = (id) => {
+  const url = `https://api.smsglobal.com/custom/delete-scheduled-message.php?username=${process.env.SMSGLOBAL_USERNAME}&password=${process.env.SMSGLOBAL_PASSWORD}&messageId=${id}`;
+  return request({ method: 'DELETE', uri: url });
+}
+
+
+const getSMS = (id) => {
+  return new Promise((resolve, reject) => {
+    smsglobal.sms.get(id, function (error, response) {
+      if(error) {
+        reject(new BadRequestError(error))
+      }
+      resolve(response)
+    });
+  })
+}
+
+module.exports = { sendSMS, getAllSMS, deleteSMS, getSMS }

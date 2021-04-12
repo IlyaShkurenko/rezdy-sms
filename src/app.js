@@ -6,16 +6,21 @@ const cors = require('cors');
 require('dotenv').config({ path: path.join(__dirname, `.env`) });
 
 const middleware = require('./middleware');
-const errorHandler = middleware.errorHandler();
-const bookings = require('./routes/bookings');
-const morgan = require('morgan');
+const { logger } = require('./lib/logger');
 
+const morgan = require('morgan');
+const db = require('./db');
+
+const errorHandler = middleware.errorHandler(logger, db.Error);
 const app = express();
+
+db.connect(process.env.MONGO_URI, process.env.DB_USER, process.env.DB_PASS, logger, { useNewUrlParser: true });
 
 // view engine setup
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -31,7 +36,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.use('/bookings', bookings);
+const normalizedPath = require('path').join(__dirname, 'api');
+
+require('fs')
+  .readdirSync(normalizedPath)
+  .filter(i => i.includes('.js'))
+  .forEach(i => {
+    const route = i.slice(0, -3);
+    app.use(`/${route}`, require(`./api/${route}`));
+  });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

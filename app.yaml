@@ -1,6 +1,12 @@
 runtime: nodejs14
 
 env_variables:
+  MONGO_URI: mongodb://quadbike-shard-00-00.5uzip.mongodb.net:27017,quadbike-shard-00-01.5uzip.mongodb.net:27017,quadbike-shard-00-02.5uzip.mongodb.net:27017/Smsglobal?ssl=true&replicaSet=atlas-6r80x8-shard-0&authSource=admin&retryWrites=true&w=majority
+  DB_USER: quadbike
+  DB_PASS: QuadBike1!
+  DB_NAME: Smsglobal
   SMSGLOBAL_API_KEY: da4d4da2484817f10192b44ac38af58b
   SMSGLOBAL_API_SECRET: f452c4aea6c5e2b54d5b3cd97c5e2f8e
+  SMSGLOBAL_USERNAME: 15zo7fi2
+  SMSGLOBAL_PASSWORD: MkPdz86j
   FROM: 61429557976
